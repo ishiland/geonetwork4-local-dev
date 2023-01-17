@@ -1,0 +1,15 @@
+# use this override file for newer macbooks with m1 chips
+
+version: '3.1'
+
+
+services:
+  www:
+    image: arm64v8/nginx:1.22
+
+  elasticsearch:
+    image: arm64v8/elasticsearch:7.17.8 
+
+  kibana:
+    image: arm64v8/kibana:7.17.8
+
