@@ -43,8 +43,8 @@ services:
                "-c", "log_directory=/var/log/postgresql",
                "-c", "log_filename=postgresql.log" ]
     volumes:
-      - ./postgres/data:/var/lib/postgresql/data
-      - ./postgres/log:/var/log/postgresql
+      - pgdata:/var/lib/postgresql/data
+      - pglog:/var/log/postgresql
     networks:
       - gn-network
 
