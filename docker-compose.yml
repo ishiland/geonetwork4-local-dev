@@ -1,5 +1,9 @@
 version: '3.1'
 
+volumes:
+  pgdata:
+  pglog:
+
 networks:
   gn-network:
     driver: bridge
@@ -118,11 +122,11 @@ services:
     environment:
       ES_JAVA_OPTS: "-Xms1G -Xmx1G"
       discovery.type: single-node
-      bootstrap.system_call_filter: false
+      bootstrap.system_call_filter: 'false'
       # test auth with 'curl -u elastic:es_password localhost:9200'
       ELASTIC_PASSWORD: es_password
-      ELASTIC_SECURITY: true
-      xpack.security.enabled: true
+      ELASTIC_SECURITY: 'true'
+      xpack.security.enabled: 'true'
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data
     networks:
