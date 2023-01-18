@@ -1,8 +1,11 @@
 version: '3.1'
 
 volumes:
+  geonetwork:
   pgdata:
   pglog:
+  esdata:
+  nginxlog:
 
 networks:
   gn-network:
@@ -21,7 +24,7 @@ services:
       - NGINX_PORT=80
     volumes:
       - ./nginx:/etc/nginx/templates
-      - ./nginx/logs:/var/log/nginx
+      - nginxlog:/var/log/nginx
     depends_on:
       - geonetwork
     networks:
@@ -80,7 +83,7 @@ services:
 
       # GEONETWORK_MICROSERVICESPROXY_TARGETURI: http://ogc-api-records-service:8080
     volumes:
-      - ./geonetwork/catalogue-data:/catalogue-data
+      - geonetwork:/catalogue-data
     depends_on:
       - elasticsearch
       - database
@@ -128,7 +131,7 @@ services:
       ELASTIC_SECURITY: 'true'
       xpack.security.enabled: 'true'
     volumes:
-      - ./elasticsearch/data:/usr/share/elasticsearch/data
+      - esdata:/usr/share/elasticsearch/data
     networks:
       - gn-network
 
