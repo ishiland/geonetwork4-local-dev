@@ -3,7 +3,7 @@
 ## Running
 
 ```sh
-docker-compose -f docker-compose.yml
+docker-compose up -d
 ```
 
 **m1 macbooks**
