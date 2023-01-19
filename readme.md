@@ -18,7 +18,9 @@ docker-compose -f docker-compose.yml -f docker-compose.m1-override.yml up -d
 http://localhost/geonetwork
 
 ### Kibana
-http://localhost/kibana
+> you must authenticate with Geonetwork first before accessing this URL, then you will be prompted for ES credentials (elastic/es_password)
+
+http://localhost/geonetwork/dashboards
 
 
 ## To Do

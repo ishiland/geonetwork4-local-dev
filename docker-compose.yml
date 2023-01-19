@@ -20,6 +20,7 @@ services:
     environment:
       # Only used for / redirect to default webapp
       - NGINX_PUBLIC_HOST=localhost
+      #- NGINX_PUBLIC_HOST=apps.titellus.net
       - NGINX_HOST=localhost
       - NGINX_PORT=80
     volumes:
@@ -52,8 +53,8 @@ services:
     build:
       context: .
     restart: always
-    ports:
-      - 8080:8080
+    # ports:
+    #   - 8080:8080
     environment:
       DATA_DIR: /catalogue-data
 
@@ -113,8 +114,8 @@ services:
 
   elasticsearch:
     image: elasticsearch:7.11.1
-    ports:
-      - 9200:9200
+    # ports:
+    #   - 9200:9200
     ulimits:
       memlock:
         soft: -1
@@ -147,6 +148,8 @@ services:
       SERVER_REWRITEBASEPATH: 'false'
       KIBANA_INDEX: .dashboards
       XPACK_MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED: 'true'
+      # xpack.security.enabled: false
+      # xpack.monitoring.enabled: false
       ELASTICSEARCH_PASSWORD: es_password
       ELASTICSEARCH_USERNAME: elastic
     networks:
