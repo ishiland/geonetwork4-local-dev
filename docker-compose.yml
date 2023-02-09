@@ -32,11 +32,15 @@ services:
       - gn-network
 
   database:
+    env_file:
+      - .env
     image: postgis/postgis:11-2.5
-    environment:
-      POSTGRES_USER: geonetwork
-      POSTGRES_PASSWORD: geonetwork
-      POSTGRES_DB: geonetwork
+    # environment:
+    #   POSTGRES_USER: geonetwork
+    #   POSTGRES_PASSWORD: geonetwork
+    #   POSTGRES_DB: geonetwork4
+    ports:
+      - 5433:5432
     command: [ "postgres",
                "-c", "log_statement=all",
                "-c", "logging_collector=true",
@@ -46,6 +50,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - pglog:/var/log/postgresql
+      - './postgis/init-scripts/1-init-dbs.sh:/docker-entrypoint-initdb.d/1-init-dbs.sh'
     networks:
       - gn-network
 
