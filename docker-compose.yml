@@ -89,7 +89,7 @@ services:
 
       # GEONETWORK_MICROSERVICESPROXY_TARGETURI: http://ogc-api-records-service:8080
     volumes:
-      - geonetwork:/catalogue-data
+      - ./geonetwork/catalogue-data:/catalogue-data
     depends_on:
       - elasticsearch
       - database
