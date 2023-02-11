@@ -6,7 +6,6 @@ psql --version
 
 psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL
     CREATE ROLE "$GEONETWORK_USER" LOGIN PASSWORD '$GEONETWORK_PASSWORD';
-    CREATE ROLE "tileservice" LOGIN PASSWORD 'tileservice';
     CREATE DATABASE $GEONETWORK_DB;
 
     \c '$GEONETWORK_DB';
