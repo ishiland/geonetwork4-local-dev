@@ -32,11 +32,15 @@ services:
       - gn-network
 
   database:
+    env_file:
+      - .env
     image: postgis/postgis:11-2.5
-    environment:
-      POSTGRES_USER: geonetwork
-      POSTGRES_PASSWORD: geonetwork
-      POSTGRES_DB: geonetwork
+    # environment:
+    #   POSTGRES_USER: geonetwork
+    #   POSTGRES_PASSWORD: geonetwork
+    #   POSTGRES_DB: geonetwork4
+    ports:
+      - 5433:5432
     command: [ "postgres",
                "-c", "log_statement=all",
                "-c", "logging_collector=true",
@@ -44,8 +48,9 @@ services:
                "-c", "log_directory=/var/log/postgresql",
                "-c", "log_filename=postgresql.log" ]
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - ./postgres/data:/var/lib/postgresql/data
       - pglog:/var/log/postgresql
+      - './postgis/init-scripts/1-init-dbs.sh:/docker-entrypoint-initdb.d/1-init-dbs.sh'
     networks:
       - gn-network
 
@@ -84,7 +89,7 @@ services:
 
       # GEONETWORK_MICROSERVICESPROXY_TARGETURI: http://ogc-api-records-service:8080
     volumes:
-      - geonetwork:/catalogue-data
+      - ./geonetwork/catalogue-data:/catalogue-data
     depends_on:
       - elasticsearch
       - database
@@ -132,7 +137,7 @@ services:
       ELASTIC_SECURITY: 'true'
       xpack.security.enabled: 'true'
     volumes:
-      - esdata:/usr/share/elasticsearch/data
+      - ./elasticsearch/data:/usr/share/elasticsearch/data
     networks:
       - gn-network
 
